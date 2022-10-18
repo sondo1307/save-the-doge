@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class Line : MonoBehaviour
@@ -24,7 +25,15 @@ public class Line : MonoBehaviour
 
         points.Add(newPoint);
         pointsCount++;
-        // LinesDrawer.Instance.DrawAmount -= Vector2.Distance(newPoint, GetLastPoint());
+
+        if (pointsCount > 2)
+        {
+            // print(pointsCount);
+            // print($"<color=red>{pointsCount - 1}</color>");
+            GameplayManager.Instance.DrawAmount -=
+                Vector2.Distance(newPoint, lineRenderer.GetPosition(pointsCount - 2));
+            GameplayUI.Instance.UpdateSlider();
+        }
 
         //Add Circle Collider to the Point
         CircleCollider2D circleCollider = this.gameObject.AddComponent<CircleCollider2D>();

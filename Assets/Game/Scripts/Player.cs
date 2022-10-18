@@ -3,12 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum HurtType
+{
+    Physic,
+    Disappear,
+}
+
 public class Player : Singleton<Player>
 {
     [SerializeField] private Collider2D _collider;
     [SerializeField] private CircleCollider2D _triggerBee;
     [SerializeField] private float _triggerRadius = 3;
-    
+    [SerializeField] private Rigidbody2D _rb;
     
     
     private void OnValidate()
@@ -18,15 +24,12 @@ public class Player : Singleton<Player>
 
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    private void Start()
     {
-        if (col.transform.CompareTag(StaticValue.ENEMY_TAG))
-        {
-            // Lose
-            print("LOSE");
-            Time.timeScale = 0;
-        }
+        GameplayManager.Lose += StopPhysic;
+        GameplayManager.Win += StopPhysic;
     }
+    
 
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -36,6 +39,26 @@ public class Player : Singleton<Player>
         }
     }
 
+    private void StopPhysic()
+    {
+        _rb.bodyType = RigidbodyType2D.Static;
+    }
+
+    public void Hurt(HurtType type)
+    {
+        switch (type)
+        {
+            case HurtType.Physic:
+                // Anim
+                break;
+            case HurtType.Disappear:
+                // Particle
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(type), type, null);
+        }
+    }
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;

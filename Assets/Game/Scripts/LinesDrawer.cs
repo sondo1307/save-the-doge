@@ -4,7 +4,6 @@ public class LinesDrawer : Singleton<LinesDrawer>
 {
     public GameObject linePrefab;
     public LayerMask cantDrawOverLayer;
-    public float DrawAmount = 50f;
     int cantDrawOverLayerIndex;
     [SerializeField] private LineRenderer _redLine;
     
@@ -52,7 +51,7 @@ public class LinesDrawer : Singleton<LinesDrawer>
     // Draw ----------------------------------------------------
     void Draw()
     {
-        if (DrawAmount <= 0)
+        if (GameplayManager.Instance.DrawAmount <= 0)
         {
             // Invoke
             GameplayManager.StartStage?.Invoke();
@@ -79,13 +78,14 @@ public class LinesDrawer : Singleton<LinesDrawer>
         {
             _redLine.SetPosition(0, currentLine.GetLastPoint());
             _redLine.SetPosition(1, mousePosition);
+            currentLine.AddPoint(currentLine.GetLastPoint());
         }
         else
         {
             _redLine.SetPosition(0, Vector3.zero);
             _redLine.SetPosition(1, Vector3.zero);
+            currentLine.AddPoint(mousePosition);
         }
-        currentLine.AddPoint(h ? currentLine.GetLastPoint() : mousePosition);
     }
 
     // End Draw ------------------------------------------------
