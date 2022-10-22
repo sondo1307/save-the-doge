@@ -20,7 +20,7 @@ public class LinesDrawer : Singleton<LinesDrawer>
     {
         cam = Camera.main;
         cantDrawOverLayerIndex = LayerMask.NameToLayer("CantDrawOver");
-        GameplayManager.StartStage += StartStage;
+        GameplayManager.Instance.EndDraw += StartStage;
     }
 
     void Update()
@@ -46,6 +46,7 @@ public class LinesDrawer : Singleton<LinesDrawer>
         currentLine.SetLineColor(lineColor);
         currentLine.SetPointsMinDistance(linePointsMinDistance);
         currentLine.SetLineWidth(lineWidth);
+        GameplayManager.Instance.BeginDraw?.Invoke();
     }
 
     // Draw ----------------------------------------------------
@@ -54,7 +55,7 @@ public class LinesDrawer : Singleton<LinesDrawer>
         if (GameplayManager.Instance.DrawAmount <= 0)
         {
             // Invoke
-            GameplayManager.StartStage?.Invoke();
+            GameplayManager.Instance.EndDraw?.Invoke();
             return;
         }
 
@@ -107,7 +108,7 @@ public class LinesDrawer : Singleton<LinesDrawer>
                 currentLine.UsePhysics(true);
 
                 currentLine = null;
-                GameplayManager.StartStage?.Invoke();
+                GameplayManager.Instance.EndDraw?.Invoke();
             }
             _redLine.SetPosition(0, Vector3.zero);
             _redLine.SetPosition(1, Vector3.zero);

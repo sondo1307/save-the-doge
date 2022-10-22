@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    // StartStage is called before the first frame update
+    // EndDraw is called before the first frame update
     void Start()
     {
         

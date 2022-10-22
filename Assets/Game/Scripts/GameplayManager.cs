@@ -6,11 +6,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(1)]
 public class GameplayManager : Singleton<GameplayManager>
 {
-    public static Action StartStage;
-    public static Action Win;
-    public static Action Lose;
+    public Action EndDraw;
+    public Action BeginDraw;
+    public Action Win;
+    public Action Lose;
     public float DrawAmount = 50f;
     public float[] StarMilestonePercentage;
 
@@ -21,7 +23,7 @@ public class GameplayManager : Singleton<GameplayManager>
 
     private void Start()
     {
-        StartStage += StartCd;
+        EndDraw += StartCd;
         Win += StopCd;
         Lose += StopCd;
         _oriDrawAmount = DrawAmount;
@@ -47,11 +49,13 @@ public class GameplayManager : Singleton<GameplayManager>
     private void StopCd()
     {
         CancelInvoke();
+        DataManager.Instance.SaveStar(DataManager.Instance.Level, FinishMilestone);
+        DataManager.Instance.SaveLevelNextLevel();
     }
 
     public int GetCurrentMilestone()
     {
-        var a = DrawAmount / _oriDrawAmount;
+        var a = DrawAmount / _oriDrawAmount * 100;
         if (a >= StarMilestonePercentage[2])
         {
             return FinishMilestone = 3;

@@ -24,23 +24,23 @@ public class Bee : MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent2D>();
         _agent.enabled = false;
-        GameplayManager.StartStage += StartMove;
-        GameplayManager.Win += StopMoving;
-        GameplayManager.Lose += StopMoving;
+        GameplayManager.Instance.EndDraw += StartMove;
+        GameplayManager.Instance.Win += StopMoving;
+        GameplayManager.Instance.Lose += StopMoving;
     }
 
     private void StartMove()
     {
-        _agent.enabled = true;
+        // _agent.enabled = true;
         _agent.SetDestination(Player.Instance.transform.position);
     }
 
     private void StopMoving()
     {
+        CancelInvoke();
         _agent.enabled = false;
         _rigid.velocity = Vector3.zero;
         _rigid.angularVelocity = 0;
-        CancelInvoke();
     }
     
     public void AddForce()

@@ -24,10 +24,16 @@ public class Player : Singleton<Player>
 
     }
 
+    private void Awake()
+    {
+        _triggerBee.enabled = false;
+    }
+
     private void Start()
     {
-        GameplayManager.Lose += StopPhysic;
-        GameplayManager.Win += StopPhysic;
+        GameplayManager.Instance.Lose += StopPhysic;
+        GameplayManager.Instance.Win += StopPhysic;
+        GameplayManager.Instance.EndDraw += EndDraw;
     }
     
 
@@ -37,6 +43,11 @@ public class Player : Singleton<Player>
         {
             col.GetComponent<Bee>().StartLoopForce();
         }
+    }
+
+    private void EndDraw()
+    {
+        _triggerBee.enabled = true;
     }
 
     private void StopPhysic()

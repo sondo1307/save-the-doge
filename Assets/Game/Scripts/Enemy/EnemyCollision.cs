@@ -13,7 +13,7 @@ public class EnemyCollision : MonoBehaviour
         {
             // Lose
             col.transform.GetComponent<Player>().Hurt(_hurtType);
-            GameplayManager.Lose?.Invoke();
+            GameplayManager.Instance.Lose?.Invoke();
         }
     }
 }
