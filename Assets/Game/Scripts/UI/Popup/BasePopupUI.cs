@@ -13,12 +13,18 @@ namespace Game
         
         protected virtual void Awake()
         {
-            _closeButton?.onClick?.AddListener(ClosePopUp);
+            _closeButton?.onClick?.AddListener(ClosePopUpSelf);
         }
         
-        public virtual void ClosePopUp()
+        public virtual void ClosePopUpByBackSystem()
         {
             _mainCg.HideCanvas();
+        }
+
+        public virtual void ClosePopUpSelf()
+        {
+            _mainCg.HideCanvas();
+            BackSystem.Instance.OnlyPop();
         }
 
         public virtual void OpenPopUp(bool overrideAnimation = false)
@@ -28,6 +34,7 @@ namespace Game
             {
                 _popUp.localScale = Vector3.one * 1;
                 _mainCg.ShowCanvas(0);
+                return;
             }
             _mainCg.ShowCanvas();
             _popUp.localScale = Vector3.one * 0.8f;

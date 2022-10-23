@@ -50,7 +50,6 @@ public class GameplayManager : Singleton<GameplayManager>
     {
         CancelInvoke();
         DataManager.Instance.SaveStar(DataManager.Instance.Level, FinishMilestone);
-        DataManager.Instance.SaveLevelNextLevel();
     }
 
     public int GetCurrentMilestone()

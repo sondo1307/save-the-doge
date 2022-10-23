@@ -31,6 +31,7 @@ public class Player : Singleton<Player>
 
     private void Start()
     {
+        _rb.bodyType = RigidbodyType2D.Static;
         GameplayManager.Instance.Lose += StopPhysic;
         GameplayManager.Instance.Win += StopPhysic;
         GameplayManager.Instance.EndDraw += EndDraw;
@@ -48,6 +49,7 @@ public class Player : Singleton<Player>
     private void EndDraw()
     {
         _triggerBee.enabled = true;
+        _rb.bodyType = RigidbodyType2D.Dynamic;
     }
 
     private void StopPhysic()

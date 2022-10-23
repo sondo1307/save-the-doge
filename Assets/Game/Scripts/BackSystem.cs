@@ -38,9 +38,30 @@ public class BackSystem : Singleton<BackSystem>
         }
         else
         {
-            var b = Stack.Peek() as BasePopupUI;
-            b.ClosePopUp();
+            var b = Stack.Pop() as BasePopupUI;
+            b.ClosePopUpByBackSystem();
         }
+    }
+
+    public void OnlyPop()
+    {
+        if (Stack.Count == 0)
+        {
+            // Toast
+            if (_time == 1)
+            {
+                StartTapExit();
+            }
+            else if (_time == 0)
+            {
+                // Exit
+                Application.Quit();
+            }
+            return;
+        }
+
+        CancelTapExit();
+        Stack.Pop();
     }
 
     private void StartTapExit()

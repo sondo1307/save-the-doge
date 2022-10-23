@@ -8,8 +8,11 @@ namespace Game
     {
         [SerializeField] private GameObject[] _starOn;
         [SerializeField] private TMP_Text _levelTxt;
-        
 
+        [SerializeField] private GameObject _lock;
+        [SerializeField] private GameObject _unlock;
+        
+        
         private int _myIndex;
         
         public void Setup()
@@ -22,15 +25,25 @@ namespace Game
             {
                 item.SetActive(false);
             }
-            
-            for (int i = 0; i < a; i++)
+            if (a == 0)
             {
-                _starOn[i].SetActive(true);
+                _lock.SetActive(true);
+                _unlock.SetActive(false);
+            }
+            else
+            {
+                _lock.SetActive(false);
+                _unlock.SetActive(true);
+                for (int i = 0; i < a; i++)
+                {
+                    _starOn[i].SetActive(true);
+                }
             }
         }
 
         public void OnClick()
         {
+            BackSystem.Instance.PopStack();
             GameManager.Instance.LoadLevel(_myIndex + 1);
         }
     }

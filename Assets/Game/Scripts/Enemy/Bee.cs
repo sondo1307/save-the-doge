@@ -7,38 +7,56 @@ using Random = UnityEngine.Random;
 public class Bee : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rigid;
-    [SerializeField] private NavMeshAgent2D _agent;
-    [SerializeField] private float _dis = 1f;
     [SerializeField] private float _force = 5f;
     [SerializeField] private float _delay = 5f;
     [SerializeField] private float _random = 0.25f;
     
+    [Header("-------"), Space(10f)]
+    [SerializeField] private Collider2D _colliderTrigger;
+    [SerializeField] private Vector3 _des;
+    [SerializeField] private float _speed = 0.25f;
+    private bool _bool = true;
+    
+    
+    
 
     private void OnValidate()
     {
-        _agent = GetComponent<NavMeshAgent2D>();
         _rigid = GetComponent<Rigidbody2D>();
+        _des = transform.GetChild(0).transform.position;
     }
 
     private void Awake()
     {
-        _agent = GetComponent<NavMeshAgent2D>();
-        _agent.enabled = false;
         GameplayManager.Instance.EndDraw += StartMove;
         GameplayManager.Instance.Win += StopMoving;
         GameplayManager.Instance.Lose += StopMoving;
     }
 
+    private void Start()
+    {
+        
+    }
+
+    private void Update()
+    {
+        if (_bool) return;
+        if (Vector3.Distance(transform.position, _des) <= 0.6f)
+        {
+            StartLoopForce();
+            return;
+        }
+        transform.position = Vector3.Lerp(transform.position, _des, _speed);
+    }
+
     private void StartMove()
     {
-        // _agent.enabled = true;
-        _agent.SetDestination(Player.Instance.transform.position);
+        _bool = false;
     }
 
     private void StopMoving()
     {
         CancelInvoke();
-        _agent.enabled = false;
         _rigid.velocity = Vector3.zero;
         _rigid.angularVelocity = 0;
     }
@@ -52,7 +70,17 @@ public class Bee : MonoBehaviour
 
     public void StartLoopForce()
     {
-        _agent.enabled = false;
+        if (_bool) return;
+        _colliderTrigger.enabled = false;
+        _bool = true;
         InvokeRepeating(nameof(AddForce), 0, _delay);
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag(StaticValue.LINE))
+        {
+            StartLoopForce();
+        }
     }
 }

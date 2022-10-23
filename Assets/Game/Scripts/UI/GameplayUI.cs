@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(21)]
 public class GameplayUI : Singleton<GameplayUI>
 {
     [Header("-----UI-----"), Space(20f)] 
@@ -63,6 +64,7 @@ public class GameplayUI : Singleton<GameplayUI>
     private void WinUI()
     {
         StartCoroutine(Delay());
+        DataManager.Instance.SaveLevelNextLevel();
         IEnumerator Delay()
         {
             yield return new WaitForSeconds(1);
@@ -75,7 +77,7 @@ public class GameplayUI : Singleton<GameplayUI>
         StartCoroutine(Delay());
         IEnumerator Delay()
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(2);
             GameManager.Instance.LoadLevel(DataManager.Instance.Level);
         }
     }
@@ -104,6 +106,6 @@ public class GameplayUI : Singleton<GameplayUI>
 
     public void OnRestartBtnClick()
     {
-        GameManager.Instance.LoadLevel(DataManager.Instance.GetLevel());
+        GameManager.Instance.LoadLevel(DataManager.Instance.Level);
     }
 }

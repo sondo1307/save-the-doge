@@ -17,12 +17,12 @@ public class DataManager : Singleton<DataManager>
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        GetLevel();
+        Level = GetLevel();
     }
 
     public int GetLevel()
     {
-        return Level = PlayerPrefs.GetInt(StaticValue.LEVEL, 0);
+        return PlayerPrefs.GetInt(StaticValue.LEVEL, 0);
     }
 
     public void SaveLevelNextLevel()
@@ -84,5 +84,26 @@ public class DataManager : Singleton<DataManager>
     public int GetStar(int levelIndex)
     {
         return PlayerPrefs.GetInt($"Star{levelIndex}", 0);
+    }
+
+
+    public void SaveSoundData(bool val)
+    {
+        PlayerPrefs.SetInt("Sound", val ? 1 : 0);
+    }
+
+    public void SaveVibrateData(bool val)
+    {
+        PlayerPrefs.SetInt("Vibrate", val ? 1 : 0);
+    }
+
+    public int GetSoundData()
+    {
+        return PlayerPrefs.GetInt("Sound", 1);
+    }
+
+    public int GetVibrateData()
+    {
+        return PlayerPrefs.GetInt("Vibrate", 1);
     }
 }

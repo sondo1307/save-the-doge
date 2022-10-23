@@ -22,6 +22,7 @@ public class Root : MonoBehaviour
         _startBtn.onClick.AddListener(OnStartBtnClick);
         _settingBtn.onClick.AddListener(OnSettingBtnClick);
         _menuListBtn.onClick.AddListener(OnMenuListBtnClick);
+        _skinBtn.onClick.AddListener(OnShopBtnClick);
     }
 
 
@@ -40,6 +41,13 @@ public class Root : MonoBehaviour
     private void OnMenuListBtnClick()
     {
         var a = _menuPopup as MenuListPopUp;
+        a.OpenPopUp(true);
+        BackSystem.Instance.PushStack(a);
+    }
+
+    private void OnShopBtnClick()
+    {
+        var a = _skinPopup as ShopPopUp;
         a.OpenPopUp(true);
         BackSystem.Instance.PushStack(a);
     }
