@@ -13,6 +13,7 @@ public class GameplayManager : Singleton<GameplayManager>
     public Action BeginDraw;
     public Action Win;
     public Action Lose;
+    public Action ShowTip;
     public float DrawAmount = 50f;
     public float[] StarMilestonePercentage;
 
@@ -21,11 +22,14 @@ public class GameplayManager : Singleton<GameplayManager>
     private float _oriDrawAmount;
     public int FinishMilestone;
 
+    public int EndStatus = -1;
+
     private void Start()
     {
         EndDraw += StartCd;
         Win += StopCd;
         Lose += StopCd;
+        Lose += LoseStatus;
         _oriDrawAmount = DrawAmount;
     }
 
@@ -50,6 +54,11 @@ public class GameplayManager : Singleton<GameplayManager>
     {
         CancelInvoke();
         DataManager.Instance.SaveStar(DataManager.Instance.Level, FinishMilestone);
+    }
+
+    private void LoseStatus()
+    {
+        EndStatus = 2;
     }
 
     public int GetCurrentMilestone()

@@ -15,8 +15,8 @@ public class Player : Singleton<Player>
     [SerializeField] private CircleCollider2D _triggerBee;
     [SerializeField] private float _triggerRadius = 3;
     [SerializeField] private Rigidbody2D _rb;
-    
-    
+
+    private bool _hurt = false;
     private void OnValidate()
     {
         _collider = GetComponent<Collider2D>();
@@ -59,6 +59,8 @@ public class Player : Singleton<Player>
 
     public void Hurt(HurtType type)
     {
+        if (_hurt) return;
+        _hurt = true;
         switch (type)
         {
             case HurtType.Physic:

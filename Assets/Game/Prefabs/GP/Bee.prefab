@@ -163,9 +163,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigid: {fileID: 477803849600671786}
-  _force: 4
+  _force: 5.5
   _delay: 0.5
-  _random: 0
+  _random: 0.5
   _colliderTrigger: {fileID: 1362183232}
   _des: {x: 14.2, y: -8.53, z: 0}
   _speed: 0.015
@@ -202,9 +202,9 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 2b3f38cb54f74044cbf0b7dccccb42a6, type: 2}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &4808981673309232611
 MonoBehaviour:

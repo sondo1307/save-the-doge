@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Application.targetFrameRate = 60;
     }
 
     private void Start()
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
     {
         LoadLevelCommon(LocalFunc);
         InRootScene = false;
+        print($"LOAD LEVEL: {level}");
 
         void LocalFunc()
         {
@@ -48,6 +51,7 @@ public class GameManager : MonoBehaviour
     {
         LoadLevelCommon(LocalFunc);
         InRootScene = false;
+        print($"LOAD LEVEL: {LevelPrefab[DataManager.Instance.GetLevel() + 1]}");
 
         void LocalFunc()
         {
@@ -60,6 +64,7 @@ public class GameManager : MonoBehaviour
     {
         LoadLevelCommon(LocalFunc);
         InRootScene = true;
+        print($"LOAD LEVEL ROOT");
 
         void LocalFunc()
         {

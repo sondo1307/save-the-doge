@@ -18,7 +18,7 @@ public class Bee : MonoBehaviour
     private bool _bool = true;
     
     
-    
+    private int _myIndex = 0;
 
     private void OnValidate()
     {
@@ -31,6 +31,7 @@ public class Bee : MonoBehaviour
         GameplayManager.Instance.EndDraw += StartMove;
         GameplayManager.Instance.Win += StopMoving;
         GameplayManager.Instance.Lose += StopMoving;
+        _myIndex = transform.GetSiblingIndex();
     }
 
     private void Start()
@@ -41,7 +42,7 @@ public class Bee : MonoBehaviour
     private void Update()
     {
         if (_bool) return;
-        if (Vector3.Distance(transform.position, _des) <= 0.6f)
+        if (Vector3.Distance(transform.position, _des) <= 1f)
         {
             StartLoopForce();
             return;
@@ -51,7 +52,13 @@ public class Bee : MonoBehaviour
 
     private void StartMove()
     {
-        _bool = false;
+        StartCoroutine(Delay());
+        
+        IEnumerator Delay()
+        {
+            yield return new WaitForSeconds(0.1f * _myIndex);
+            _bool = false;
+        }
     }
 
     private void StopMoving()

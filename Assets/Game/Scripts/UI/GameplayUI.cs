@@ -108,4 +108,10 @@ public class GameplayUI : Singleton<GameplayUI>
     {
         GameManager.Instance.LoadLevel(DataManager.Instance.Level);
     }
+
+    public void ShowTip()
+    {
+        GameplayManager.Instance.ShowTip?.Invoke();
+        _tipsBtn.gameObject.SetActive(false);
+    }
 }

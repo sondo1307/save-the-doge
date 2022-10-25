@@ -75,15 +75,20 @@ public class DataManager : Singleton<DataManager>
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="levelIndex"></param>
-    public void SaveStar(int levelIndex, int val)
+    /// <param name="level"></param>
+    public void SaveStar(int level, int val)
     {
-        PlayerPrefs.SetInt($"Star{levelIndex}", val);
+        var a = GetStar(level);
+        if (val < a)
+        {
+            return;
+        }
+        PlayerPrefs.SetInt($"Star{level}", val);
     }
 
-    public int GetStar(int levelIndex)
+    public int GetStar(int level)
     {
-        return PlayerPrefs.GetInt($"Star{levelIndex}", 0);
+        return PlayerPrefs.GetInt($"Star{level}", 0);
     }
 
 

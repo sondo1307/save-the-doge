@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Game;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ public class WinPopUp : BasePopupUI
     [SerializeField] private Button _retry;
 
     [SerializeField] private GameObject[] _stars;
+    [SerializeField] private TMP_Text _lvTxt;
+    
     
 
 
@@ -31,6 +34,8 @@ public class WinPopUp : BasePopupUI
             star.SetActive(false);
         }
 
+        // Already Increase Level
+        _lvTxt.text = $"Level {DataManager.Instance.Level - 1}";
         StartCoroutine(DelayStar());
         
         IEnumerator DelayStar()

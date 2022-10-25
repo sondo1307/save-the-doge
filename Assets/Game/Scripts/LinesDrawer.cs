@@ -16,6 +16,8 @@ public class LinesDrawer : Singleton<LinesDrawer>
     Camera cam;
     private bool _allow = true;
 
+    public bool AllowDraw = true;
+
     void Start()
     {
         cam = Camera.main;
@@ -25,7 +27,10 @@ public class LinesDrawer : Singleton<LinesDrawer>
 
     void Update()
     {
-        if (!_allow) return;
+        var a = Input.mousePosition;
+        a.z = 10f;
+        a = Camera.main.ScreenToWorldPoint(a);
+        if (!_allow || a.y >= 2.5f) return;
         if (Input.GetMouseButtonDown(0))
             BeginDraw();
 

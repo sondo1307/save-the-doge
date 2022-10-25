@@ -25,7 +25,20 @@ namespace Game
             {
                 item.SetActive(false);
             }
-            if (a == 0)
+
+            if (_myIndex == 0)
+            {
+                _lock.SetActive(false);
+                _unlock.SetActive(true);
+                for (int i = 0; i < a; i++)
+                {
+                    _starOn[i].SetActive(true);
+                }
+
+                return;
+            }
+            
+            if (a == 0 && _myIndex != DataManager.Instance.GetLevel() - 1)
             {
                 _lock.SetActive(true);
                 _unlock.SetActive(false);
